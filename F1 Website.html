@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 Regulation Eras — The Story of a Sport Reinvented</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --red:       #e10600;   /* F1 official red */
+      --red-dim:   #7a0300;
+      --bg:        #0a0a0a;   /* near-black background */
+      --bg2:       #141414;   /* card background */
+      --bg3:       #1e1e1e;   /* elevated card */
+      --text:      #f0f0f0;   /* primary text */
+      --text-dim:  #888;      /* secondary text */
+      --border:    #2a2a2a;   /* subtle borders */
+      --gold:      #d4a017;   /* accent for 2021 */
+      --blue:      #1565c0;   /* Mercedes blue */
+      --teal:      #00897b;   /* 2026 accent */
+    }
+
+    /* ─── RESET & BASE ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── STICKY NAV ────────────────────────────────────────────── */
+    /* The nav sticks to the top. JS will highlight the active tab. */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: stretch;
+      height: 56px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--red); margin-right: 6px; }
+
+    .nav-tabs {
+      display: flex;
+      list-style: none;
+      flex: 1;
+      overflow-x: auto;
+    }
+
+    /* Each tab is a button that scrolls to its section */
+    .nav-tabs button {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 22px;
+      height: 56px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    /* The red underline on the active tab */
+    .nav-tabs button::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transition: transform 0.25s;
+    }
+
+    .nav-tabs button:hover { color: var(--text); }
+    .nav-tabs button.active { color: var(--text); }
+    .nav-tabs button.active::after { transform: scaleX(1); }
+
+    /* ─── HERO SECTION ──────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 6vw 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative grid lines — pure CSS background pattern */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+    }
+
+    /* Big red vertical bar — design accent */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 6vw;
+      width: 3px;
+      background: var(--red);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+      margin-left: 24px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(52px, 10vw, 110px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-left: 24px;
+      position: relative;
+    }
+
+    /* "FORMULA" in white, "1" in red — classic branding */
+    .hero h1 em { color: var(--red); font-style: normal; }
+
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-dim);
+      margin: 24px 0 40px 24px;
+      max-width: 520px;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: 24px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      position: relative;
+      animation: bounce 2s infinite;
+    }
+
+    /* ─── ERA SECTIONS ──────────────────────────────────────────── */
+    /* Each .era is a full-page section with its own colour identity */
+    .era {
+      min-height: 100vh;
+      padding: 100px 6vw 80px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      position: relative;
+    }
+
+    /* Mobile: stack columns */
+    @media (max-width: 768px) {
+      .era { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Left accent bar — colour changes per era */
+    .era::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 6vw;
+      width: 3px;
+    }
+
+    /* Era 1: silver (Mercedes) */
+    #era-hybrid::before { background: #b0bec5; }
+    /* Era 2: gold (championship battle) */
+    #era-2021::before   { background: var(--gold); }
+    /* Era 3: red (Red Bull / new era) */
+    #era-2022::before   { background: var(--red); }
+    /* Era 4: papaya orange (McLaren dominance) */
+    #era-2025::before   { background: #FF8000; }
+    /* Era 5: teal (future / 2026) */
+    #era-2026::before   { background: var(--teal); }
+
+    .era-left { padding-left: 24px; }
+
+    /* The big year number behind the title — decorative */
+    .era-year {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(80px, 14vw, 160px);
+      line-height: 1;
+      opacity: 0.06;
+      position: absolute;
+      top: 80px; left: 5vw;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    .era-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .era h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin-bottom: 20px;
+    }
+
+    .era-intro {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+
+    /* ─── REGULATION PILLS ──────────────────────────────────────── */
+    /* These show the key rule changes as styled list items */
+    .reg-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .reg-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* The coloured icon dot beside each regulation change */
+    .reg-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px;
+      margin-top: 1px;
+    }
+
+    .reg-item strong { display: block; font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+    .reg-item span { color: var(--text-dim); font-size: 13px; }
+
+    /* ─── RIGHT COLUMN: VISUALISATIONS ─────────────────────────── */
+    .era-right { display: flex; flex-direction: column; gap: 20px; }
+
+    /* Stat card — shows a headline number */
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+    }
+
+    .stat-card-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    /* ─── CSS BAR CHART ─────────────────────────────────────────── */
+    /* This is a pure CSS bar chart — no libraries, no images */
+    .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 44px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bar-track {
+      background: var(--bg3);
+      border-radius: 3px;
+      height: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* The actual coloured bar — width set by inline style in HTML */
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      position: absolute;
+      left: 0; top: 0;
+      /* JS adds the 'animated' class which triggers this transition */
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .bar-fill.animated { width: var(--target-width); }
+
+    .bar-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+
+    /* ─── CALLOUT BOX ───────────────────────────────────────────── */
+    /* The dramatic "key moment" box with a left border accent */
+    .callout {
+      border-left: 3px solid;
+      padding: 16px 20px;
+      background: var(--bg2);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .callout p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+    .callout p strong { color: var(--text); font-weight: 600; }
+
+    /* ─── 2026 FEATURE CARDS ────────────────────────────────────── */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .feature-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .feature-card-icon {
+      font-size: 22px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .feature-card h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .feature-card p {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ─── POINTS RACE (2021) ────────────────────────────────────── */
+    /* A special visual for the title fight — the tightest ever */
+    .points-race {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+    }
+
+    .driver-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .driver-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      width: 120px;
+    }
+
+    .driver-bar-wrap {
+      flex: 1;
+      background: var(--bg3);
+      border-radius: 3px;
+      height: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .driver-bar {
+      height: 100%;
+      border-radius: 3px;
+      position: absolute;
+      left: 0; top: 0;
+      width: 0;
+      transition: width 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+    }
+
+    .driver-bar.animated { width: var(--target-width); }
+
+    .driver-pts {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      color: white;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 6vw;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    footer span { color: var(--red); }
+
+    /* ─── ANIMATIONS ────────────────────────────────────────────── */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* Fade-in on scroll — JS adds .visible class */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children */
+    .fade-in:nth-child(2) { transition-delay: 0.1s; }
+    .fade-in:nth-child(3) { transition-delay: 0.2s; }
+    .fade-in:nth-child(4) { transition-delay: 0.3s; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────── -->
+  <!--
+    HTML: <nav> is a semantic element — tells browsers/screen readers
+    this is navigation. <button> elements are used (not links) because
+    they trigger JS scroll actions, not page navigations.
+  -->
+  <nav>
+    <a class="nav-brand" href="#hero">
+      <span>F1</span> REGULATION ERAS
+    </a>
+    <ul class="nav-tabs">
+      <li><button onclick="goToSection('hero')" class="active">Overview</button></li>
+      <li><button onclick="goToSection('era-hybrid')">2014–2020 Hybrid Era</button></li>
+      <li><button onclick="goToSection('era-2021')">2021 — The Battle</button></li>
+      <li><button onclick="goToSection('era-2022')">2022 — Ground Effect</button></li>
+      <li><button onclick="goToSection('era-2025')">2024–2025 — Papaya Rising</button></li>
+      <li><button onclick="goToSection('era-2026')">2026 — The Future</button></li>
+    </ul>
+  </nav>
+
+
+  <!-- ── HERO ────────────────────────────────────────────────────── -->
+  <!--
+    HTML: <section> is a semantic tag for a thematic grouping.
+    The id="hero" lets JS and anchor links target this section.
+  -->
+  <section class="hero" id="hero">
+    <p class="hero-eyebrow">A technical history</p>
+    <h1>
+      FORMULA<br>
+      <em>1</em><br>
+      REWRITTEN
+    </h1>
+    <p class="hero-sub">
+      From Mercedes' seven-year stranglehold, through the most controversial
+      title fight in modern history, to the ground effect revolution — and into
+      the uncharted territory of 2026.
+    </p>
+    <p class="hero-scroll">↓ &nbsp; Scroll to begin</p>
+  </section>
+
+
+  <!-- ── ERA 1: HYBRID DYNASTY ───────────────────────────────────── -->
+  <section class="era" id="era-hybrid">
+    <div class="era-year">2014</div>
+
+    <!-- LEFT: Text and regulation changes -->
+    <div class="era-left">
+      <!--
+        CSS: .era-tag gets a background and color set inline here.
+        The style attribute is valid HTML — it applies CSS directly
+        to one element. Not ideal for large projects, but fine for
+        unique one-off styling like these era badges.
+      -->
+      <span class="era-tag fade-in" style="background:#1a2a35; color:#90caf9;">
+        2014 – 2020
+      </span>
+
+      <h2 class="fade-in">The Silver<br>Dominance</h2>
+
+      <p class="era-intro fade-in">
+        The 2014 regulation overhaul — moving from 2.4L V8s to 1.6L V6 turbocharged
+        hybrid power units — handed Mercedes an insurmountable advantage. They had
+        mastered the complex energy recovery systems while rivals struggled.
+      </p>
+
+      <!-- Regulation changes list -->
+      <ul class="reg-list">
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#1a2a35; color:#90caf9;">⚙</div>
+          <div>
+            <strong>New Power Unit Architecture</strong>
+            <span>1.6L V6 turbo + MGU-H + MGU-K replaced the 2.4L V8s. Teams had to develop entirely new powertrains — and Mercedes was years ahead.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#1a2a35; color:#90caf9;">🔋</div>
+          <div>
+            <strong>Energy Recovery Systems (ERS)</strong>
+            <span>Two motor generator units harvested energy from braking (MGU-K) and exhaust heat (MGU-H), delivering up to 160bhp of electrical assistance.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#1a2a35; color:#90caf9;">📉</div>
+          <div>
+            <strong>Token System (2015–2016)</strong>
+            <span>A controversial system limited how many PU components teams could develop per season — designed to control costs, it locked in existing performance gaps.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT: Championship dominance bar chart -->
+    <div class="era-right">
+
+      <!--
+        This bar chart is built entirely with CSS and HTML divs.
+        The .bar-fill width is set by a CSS variable (--target-width)
+        which is applied via inline style. JavaScript later adds the
+        'animated' class which triggers the CSS transition.
+      -->
+      <div class="stat-card fade-in">
+        <div class="stat-card-label">Constructors Championships — 2014 to 2020</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label" style="color:#90caf9;">Mercedes</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background:#1565c0; --target-width: 100%;" data-animate></div>
+            </div>
+            <span class="bar-value">7 / 7</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#e53935;">Ferrari</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background:#b71c1c; --target-width: 0%;" data-animate></div>
+            </div>
+            <span class="bar-value">0 / 7</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#f57c00;">Red Bull</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background:#e65100; --target-width: 0%;" data-animate></div>
+            </div>
+            <span class="bar-value">0 / 7</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout fade-in" style="border-color:#90caf9;">
+        <div class="callout-label" style="color:#90caf9;">Drivers' Championships</div>
+        <p>
+          Lewis Hamilton claimed <strong>five of the seven WDC titles</strong> in this era
+          (2014, 2015, 2017, 2018, 2019). Nico Rosberg won in 2016 and retired the
+          following morning. The sport had never seen sustained dominance like this.
+        </p>
+      </div>
+
+      <div class="callout fade-in" style="border-color:#444;">
+        <div class="callout-label" style="color:var(--text-dim);">The stat that defined an era</div>
+        <p>
+          Between 2014 and 2020, Mercedes started <strong>117 races</strong> and took
+          <strong>112 pole positions</strong>. In 2016 — their least dominant year —
+          they still won 19 of 21 races.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── ERA 2: 2021 TITLE BATTLE ────────────────────────────────── -->
+  <section class="era" id="era-2021">
+    <div class="era-year" style="color:var(--gold)">2021</div>
+
+    <div class="era-left">
+      <span class="era-tag fade-in" style="background:#2a2000; color:#d4a017;">
+        Season 2021
+      </span>
+
+      <h2 class="fade-in">The Fight<br>That Changed<br>Everything</h2>
+
+      <p class="era-intro fade-in">
+        Red Bull and Adrian Newey had finally built a car to match Mercedes.
+        Max Verstappen and Lewis Hamilton traded blows across 22 races — incidents
+        in Silverstone, Monza, Jeddah — arriving at Abu Dhabi level on points.
+        What followed became the most controversial final lap in F1 history.
+      </p>
+
+      <ul class="reg-list">
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#2a2000; color:#d4a017;">✂</div>
+          <div>
+            <strong>Aerodynamic Tweaks</strong>
+            <span>Floor edge and diffuser regulations were tightened, specifically targeting Mercedes' low-rake concept. Red Bull's high-rake design was largely unaffected.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#2a2000; color:#d4a017;">💰</div>
+          <div>
+            <strong>Budget Cap Introduced</strong>
+            <span>A $145M per-team cost cap came into force for the first time, beginning F1's transformation from spending wars to engineering efficiency.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#2a2000; color:#d4a017;">⚠</div>
+          <div>
+            <strong>Abu Dhabi — The Finale</strong>
+            <span>A Safety Car restart decision by Race Director Michael Masi allowed lapped cars to unlap, creating a one-lap shootout. Verstappen passed Hamilton. The world erupted.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="era-right">
+
+      <!-- Special points-race visualization for the 2021 title fight -->
+      <div class="points-race fade-in">
+        <div class="stat-card-label">Final Championship Points — 2021</div>
+
+        <!-- Verstappen's bar — slightly wider (395.5 pts vs Hamilton's 387.5) -->
+        <div class="driver-row">
+          <span class="driver-name" style="color:#1a6bc2;">M. Verstappen</span>
+          <div class="driver-bar-wrap">
+            <div class="driver-bar" style="background: linear-gradient(90deg, #1a3a8c, #1a6bc2); --target-width: 100%;" data-animate>
+              <span class="driver-pts">395.5</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="driver-row">
+          <span class="driver-name" style="color:#888;">L. Hamilton</span>
+          <div class="driver-bar-wrap">
+            <div class="driver-bar" style="background: linear-gradient(90deg, #222, #555); --target-width: 98%;" data-animate>
+              <span class="driver-pts">387.5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- The margin callout -->
+        <p style="font-size:12px; color:var(--text-dim); margin-top:14px; line-height:1.6;">
+          Margin of victory: <strong style="color:var(--gold);">8 points</strong> — equivalent to the difference
+          between a win and a third place finish. After 22 races and 1,256 competitive kilometres.
+        </p>
+      </div>
+
+      <div class="callout fade-in" style="border-color:var(--gold);">
+        <div class="callout-label" style="color:var(--gold);">The lasting consequence</div>
+        <p>
+          Race Director Michael Masi was removed from his role in the off-season.
+          A new Virtual Race Control room was established. And a 26-year-old Dutchman
+          had announced himself as the sport's <strong>new dominant force</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── ERA 3: 2022 GROUND EFFECT ───────────────────────────────── -->
+  <section class="era" id="era-2022">
+    <div class="era-year" style="color:var(--red)">2022</div>
+
+    <div class="era-left">
+      <span class="era-tag fade-in" style="background:#2a0000; color:#ef9a9a;">
+        2022 – 2025
+      </span>
+
+      <h2 class="fade-in">The Ground<br>Effect<br>Revolution</h2>
+
+      <p class="era-intro fade-in">
+        The most radical regulation overhaul since 1983. F1 abandoned complex
+        multi-element wings and re-introduced ground effect — generating downforce
+        from beneath the car rather than above it. The reset promised closer
+        racing. Red Bull mastered it immediately.
+      </p>
+
+      <ul class="reg-list">
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#2a0000; color:#ef9a9a;">↓</div>
+          <div>
+            <strong>Ground Effect Aerodynamics</strong>
+            <span>Venturi tunnels under the floor generate suction, pressing the car to the track. Less turbulent wake means cars can follow each other more closely — improving overtaking.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#2a0000; color:#ef9a9a;">⭕</div>
+          <div>
+            <strong>18-Inch Wheels</strong>
+            <span>Switching from 13-inch to 18-inch rims brought F1 closer to road car technology. The new low-profile Pirelli tyres changed the handling characteristics entirely.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#2a0000; color:#ef9a9a;">🏗</div>
+          <div>
+            <strong>Simplified Aerodynamic Package</strong>
+            <span>Complex bargeboards, multi-element front wings, and intricate turning vanes were banned. Simpler surfaces — but the devil was in the underfloor details.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#2a0000; color:#ef9a9a;">📊</div>
+          <div>
+            <strong>Budget Cap Tightened to $140M</strong>
+            <span>Teams caught breaching the cap faced sporting and financial penalties. Red Bull received a $7M fine and 10% CFD reduction in 2022 for a minor breach.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="era-right">
+
+      <!-- 2022 Constructor Standings bar chart -->
+      <div class="stat-card fade-in">
+        <div class="stat-card-label">2022 Constructors' Championship — Final Points</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label" style="color:#3d85c8;">Red Bull</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: linear-gradient(90deg, #0a1963, #1565c0); --target-width: 100%;" data-animate></div>
+            </div>
+            <span class="bar-value">759</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#e53935;">Ferrari</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: linear-gradient(90deg, #7f0000, #c62828); --target-width: 69%;" data-animate></div>
+            </div>
+            <span class="bar-value">524</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#90caf9;">Mercedes</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: linear-gradient(90deg, #004d40, #00695c); --target-width: 59%;" data-animate></div>
+            </div>
+            <span class="bar-value">515</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#ff9800;">Alpine</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: #1565c0; --target-width: 23%;" data-animate></div>
+            </div>
+            <span class="bar-value">173</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout fade-in" style="border-color:var(--red);">
+        <div class="callout-label" style="color:var(--red);">Red Bull's Dominance</div>
+        <p>
+          Max Verstappen won <strong>15 of 22 races</strong> in 2022 — a record at the time.
+          The RB18, designed by Adrian Newey, was so dominant that rivals spent the
+          entire season copying its concepts rather than developing their own cars.
+        </p>
+      </div>
+
+      <div class="callout fade-in" style="border-color:#444;">
+        <div class="callout-label" style="color:var(--text-dim);">The porpoising problem</div>
+        <p>
+          The return of ground effect brought an unexpected problem — <strong>porpoising</strong>,
+          a violent bouncing caused by the floor alternately stalling and reattaching.
+          Mercedes suffered the most; Red Bull had solved it before the season started.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── ERA 4: 2024–2025 PAPAYA RISING ──────────────────────────── -->
+  <section class="era" id="era-2025">
+    <div class="era-year" style="color:#FF8000">2024</div>
+
+    <div class="era-left">
+      <span class="era-tag fade-in" style="background:#2a1500; color:#FF8000;">
+        2024 – 2025
+      </span>
+
+      <h2 class="fade-in">The Papaya<br>Takeover</h2>
+
+      <p class="era-intro fade-in">
+        After Red Bull's historic 2023 season — 19 wins from 22 races — the world
+        expected more of the same. Instead, a resurgent McLaren rewrote the script
+        across two seasons, ending Red Bull's stranglehold on both championships
+        and crowning a new generation of champions.
+      </p>
+
+      <!-- Left column: your 2024 and 2025 narratives, now properly structured -->
+      <div class="callout fade-in" style="border-color:#FF8000; margin-bottom: 12px;">
+        <div class="callout-label" style="color:#FF8000;">2024 — The Shift Begins</div>
+        <p>
+          After Red Bull's historical 2023 season in the <strong>RB19</strong> ended with
+          Max Verstappen's <strong>third</strong> championship title with an infallible win
+          rate of 86.36%, winning 19 out of 22 races, people expected 2024 to go the same
+          way. However, a resurgent McLaren seemed to have other plans in mind. While they
+          failed to prevent Verstappen from clinching his <strong>fourth consecutive</strong>
+          championship victory, McLaren won the ultimate title that every manufacturer aimed
+          for — the World Constructors' Championship.
+        </p>
+      </div>
+
+      <div class="callout fade-in" style="border-color:#FF8000;">
+        <div class="callout-label" style="color:#FF8000;">2025 — Year of the Papayas</div>
+        <p>
+          McLaren began the 2025 season with a thunderous start, clinching two of the three
+          podium positions in Australia. Oscar Piastri dominated the majority of the season,
+          with Lando Norris playing catch-up the whole while. A controversial position swap
+          between the McLaren drivers and Red Bull's new rear wing breathed life into the
+          title fight. As Piastri suffered failures from Baku onwards, Norris drove to the
+          top. Then Verstappen launched <strong>the greatest comeback the sport had witnessed</strong>
+          — a 100% podium rate from Zandvoort, shaving a 100-point gap to a mere 2 points
+          at the season finale. The title fell to <strong>Lando Norris</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: 2024 Constructors standings + 2025 title fight -->
+    <div class="era-right">
+
+      <!-- 2024 Constructors' Championship bar chart -->
+      <div class="stat-card fade-in">
+        <div class="stat-card-label">2024 Constructors' Championship — Final Points</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label" style="color:#FF8000;">McLaren</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: linear-gradient(90deg, #a05000, #FF8000); --target-width: 100%;" data-animate></div>
+            </div>
+            <span class="bar-value">666</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#e53935;">Ferrari</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: linear-gradient(90deg, #7f0000, #c62828); --target-width: 97%;" data-animate></div>
+            </div>
+            <span class="bar-value">652</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#3d85c8;">Red Bull</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: linear-gradient(90deg, #0a1963, #1565c0); --target-width: 88%;" data-animate></div>
+            </div>
+            <span class="bar-value">589</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" style="color:#90caf9;">Mercedes</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="background: linear-gradient(90deg, #004d40, #00695c); --target-width: 70%;" data-animate></div>
+            </div>
+            <span class="bar-value">468</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2025 Drivers' title fight — mirroring the 2021 points race layout -->
+      <div class="points-race fade-in">
+        <div class="stat-card-label">2025 Drivers' Championship — Final Standings</div>
+
+        <div class="driver-row">
+          <span class="driver-name" style="color:#FF8000;">L. Norris</span>
+          <div class="driver-bar-wrap">
+            <div class="driver-bar" style="background: linear-gradient(90deg, #a05000, #FF8000); --target-width: 100%;" data-animate>
+              <span class="driver-pts">WDC 🏆</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="driver-row">
+          <span class="driver-name" style="color:#3d85c8;">M. Verstappen</span>
+          <div class="driver-bar-wrap">
+            <div class="driver-bar" style="background: linear-gradient(90deg, #0a1963, #1565c0); --target-width: 99%;" data-animate>
+              <span class="driver-pts">−2 pts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="driver-row">
+          <span class="driver-name" style="color:#FF8000;">O. Piastri</span>
+          <div class="driver-bar-wrap">
+            <div class="driver-bar" style="background: linear-gradient(90deg, #7a3800, #d46a00); --target-width: 88%;" data-animate>
+              <span class="driver-pts">P3</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size:12px; color:var(--text-dim); margin-top:14px; line-height:1.6;">
+          Verstappen's comeback from <strong style="color:#FF8000;">−100 points</strong> to within
+          2 points at the final round is considered one of the greatest individual
+          performances in the sport's history.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── ERA 5: 2026 ──────────────────────────────────────────────── -->
+  <section class="era" id="era-2026">
+    <div class="era-year" style="color:var(--teal)">2026</div>
+
+    <div class="era-left">
+      <span class="era-tag fade-in" style="background:#002a24; color:#80cbc4;">
+        2026 — Incoming
+      </span>
+
+      <h2 class="fade-in">The Next<br>Chapter</h2>
+
+      <p class="era-intro fade-in">
+        The most ambitious regulation set in F1 history is coming. New power units,
+        active aerodynamics, lighter cars, and a completely reshuffled manufacturer
+        landscape. Every team starts from zero again. History says the first to
+        solve it wins for a decade.
+      </p>
+
+      <ul class="reg-list">
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#002a24; color:#80cbc4;">⚡</div>
+          <div>
+            <strong>New Power Unit — MGU-H Removed</strong>
+            <span>The complex Motor Generator Unit-Heat is eliminated, simplifying the hybrid system. But the MGU-K is massively uprated — electric power rises from ~160bhp to ~350bhp. Nearly 50% of total power will be electrical.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#002a24; color:#80cbc4;">🔄</div>
+          <div>
+            <strong>Active Aerodynamics</strong>
+            <span>For the first time since 1983, moveable aerodynamic surfaces return. Automated systems will open the front and rear wings on straights to reduce drag, closing them automatically in corners.</span>
+          </div>
+        </li>
+        <li class="reg-item fade-in">
+          <div class="reg-icon" style="background:#002a24; color:#80cbc4;">🏭</div>
+          <div>
+            <strong>New Manufacturers Enter</strong>
+            <span>Audi joins as a full works team. Ford partners Red Bull Powertrains. Honda returns to supply the new Red Bull engine. The PU supplier landscape is almost unrecognisable from 2025.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="era-right">
+
+      <!-- Feature cards for 2026 — 2x2 grid -->
+      <div class="feature-grid fade-in">
+        <div class="feature-card">
+          <span class="feature-card-icon">⚡</span>
+          <h4>~350bhp</h4>
+          <p>Electrical output from the uprated MGU-K — more than double the current system.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">⚖️</span>
+          <h4>~30kg Lighter</h4>
+          <p>Target weight drops significantly as part of a push to make cars more agile and nimble.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">🔧</span>
+          <h4>Sustainable Fuel</h4>
+          <p>100% sustainable fuel becomes mandatory — a major step in F1's carbon neutrality commitment.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">📐</span>
+          <h4>Shorter Cars</h4>
+          <p>Cars shrink in length and width — addressing criticism that current cars are too large to race closely.</p>
+        </div>
+      </div>
+
+      <div class="callout fade-in" style="border-color:var(--teal);">
+        <div class="callout-label" style="color:var(--teal);">The question everyone is asking</div>
+        <p>
+          Every major regulation change has produced a new dominant team.
+          2014 gave us <strong>Mercedes</strong>. 2022 gave us <strong>Red Bull</strong>.
+          Who cracks the 2026 code first — and will the rest of the grid close the gap
+          faster than ever before, thanks to the budget cap?
+        </p>
+      </div>
+
+      <div class="callout fade-in" style="border-color:#444;">
+        <div class="callout-label" style="color:var(--text-dim);">Already causing controversy</div>
+        <p>
+          Mercedes and Red Bull have publicly disagreed over the active aero
+          specifications. Several teams claim the 2026 car concepts will be
+          <strong>nearly undriveable</strong> at low speed due to the aero balance
+          shift when the front wing opens.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── FOOTER ───────────────────────────────────────────────────── -->
+  <!--
+    HTML: <footer> is a semantic element. It wraps closing content
+    for the page — credits, context, links.
+  -->
+  <footer>
+    <p>Built with HTML, CSS & JavaScript &nbsp;·&nbsp; Data accurate as of 2025</p>
+    <p style="margin-top:8px;">Made by a <span>Formula 1</span> fan, for Formula 1 fans.</p>
+  </footer>
+
+
+  <!-- ────────────────────────────────────────────────────────────── -->
+  <!--
+    JAVASCRIPT — placed at the bottom of <body> so that all the HTML
+    above has already been parsed before this script runs.
+    If we put it in <head>, document.querySelector() would return null
+    because the elements wouldn't exist yet.
+  -->
+  <script>
+
+    // ── 1. SMOOTH SCROLL ─────────────────────────────────────────
+    // Called by onclick on each nav button.
+    // scrollIntoView() is a built-in browser method.
+    // 'behavior: smooth' makes it animate rather than jump.
+    function goToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+
+    // ── 2. ACTIVE NAV TAB ON SCROLL ──────────────────────────────
+    // IntersectionObserver watches which section is currently visible.
+    // When a section enters the viewport, we highlight its nav button.
+    const sections   = document.querySelectorAll('.era, .hero');
+    const navButtons = document.querySelectorAll('.nav-tabs button');
+
+    // Map section id → nav button index
+    const sectionIndex = { 'hero': 0, 'era-hybrid': 1, 'era-2021': 2, 'era-2022': 3, 'era-2025': 4, 'era-2026': 5 };
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Remove 'active' from all buttons
+            navButtons.forEach(b => b.classList.remove('active'));
+            // Add 'active' to the button matching this section
+            const idx = sectionIndex[entry.target.id];
+            if (navButtons[idx]) navButtons[idx].classList.add('active');
+          }
+        });
+      },
+      { threshold: 0.35 }  // trigger when 35% of the section is visible
+    );
+
+    sections.forEach(s => sectionObserver.observe(s));
+
+
+    // ── 3. FADE-IN ON SCROLL ─────────────────────────────────────
+    // Watches .fade-in elements. When they enter the viewport,
+    // adds the 'visible' class which triggers the CSS transition.
+    const fadeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target); // stop watching once visible
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+
+    // ── 4. ANIMATED BAR CHARTS ───────────────────────────────────
+    // Watches elements with [data-animate].
+    // When they enter the viewport, adds 'animated' class.
+    // The CSS transition on .bar-fill then animates width from 0 to
+    // --target-width (a CSS variable set in the HTML).
+    const barObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            barObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll('[data-animate]').forEach(el => barObserver.observe(el));
+
+  </script>
+
+</body>
+</html>
